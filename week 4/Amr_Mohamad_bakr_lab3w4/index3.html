@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Task 3: Person Object</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.container {
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.person-info {
+			font-size: 18px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h2>Person Details</h2>
+		<div class="person-info" id="personInfo"></div>
+	</div>
+
+	<script>
+		// Task 3: Object representing a person
+		const person = {
+			firstName: 'John',
+			lastName: 'Doe',
+			age: 30,
+			occupation: 'Software Developer',
+			city: 'New York'
+		};
+
+		// Display person details
+		const personInfo = document.getElementById('personInfo');
+		personInfo.innerHTML = `
+            <p><strong>Name:</strong> ${person.firstName} ${person.lastName}</p>
+            <p><strong>Age:</strong> ${person.age}</p>
+            <p><strong>Occupation:</strong> ${person.occupation}</p>
+            <p><strong>City:</strong> ${person.city}</p>
+        `;
+	</script>
+</body>
+
+</html>

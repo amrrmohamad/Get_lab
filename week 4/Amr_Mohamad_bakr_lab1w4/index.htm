@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User Interaction Tasks</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+			color: white;
+		}
+
+		.container {
+			background: rgba(0, 0, 0, 0.6);
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+		}
+
+		h1 {
+			font-size: 28px;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 10px 20px;
+			background: #74ebd5;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			color: white;
+			font-size: 16px;
+			transition: background 0.3s ease;
+		}
+
+		button:hover {
+			background: #ACB6E5;
+		}
+
+		.task {
+			margin-bottom: 15px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Interactive User Tasks</h1>
+
+		<!-- Task 1: Greet the user -->
+		<div class="task">
+			<button onclick="greetUser()">Task 1: Greet Me</button>
+		</div>
+
+		<!-- Task 2: Sum two numbers -->
+		<div class="task">
+			<button onclick="calculateSum()">Task 2: Calculate Sum</button>
+		</div>
+
+		<!-- Task 3: Show range of numbers -->
+		<div class="task">
+			<button onclick="showRange()">Task 3: Show Range</button>
+		</div>
+	</div>
+
+	<script>
+		// Task 1: Greet the user
+		function greetUser() {
+			let userName = prompt("What is your name?");
+			if (userName) {
+				alert("Hello, " + userName + "! Welcome to the site.");
+			} else {
+				alert("Please enter your name!");
+			}
+		}
+
+		// Task 2: Calculate the sum of two numbers
+		function calculateSum() {
+			let number1 = prompt("Enter the first number:");
+			let number2 = prompt("Enter the second number:");
+
+			if (number1 !== null && number2 !== null) {
+				let sum = Number(number1) + Number(number2);
+				if (!isNaN(sum)) {
+					alert("The sum of " + number1 + " and " + number2 + " is " + sum + ".");
+				} else {
+					alert("Please enter valid numbers.");
+				}
+			} else {
+				alert("Both numbers are required to calculate the sum.");
+			}
+		}
+
+		// Task 3: Display a range of numbers
+		function showRange() {
+			let start = prompt("Enter the starting number of the range:");
+			let end = prompt("Enter the ending number of the range:");
+
+			if (start !== null && end !== null) {
+				start = Number(start);
+				end = Number(end);
+
+				if (!isNaN(start) && !isNaN(end) && start <= end) {
+					console.log("Range of numbers:");
+					for (let i = start; i <= end; i++) {
+						console.log(i);
+					}
+					alert("Check the console for the range of numbers!");
+				} else {
+					alert("Please enter valid numbers where the start is less than or equal to the end.");
+				}
+			} else {
+				alert("Both start and end numbers are required.");
+			}
+		}
+	</script>
+</body>
+
+</html>

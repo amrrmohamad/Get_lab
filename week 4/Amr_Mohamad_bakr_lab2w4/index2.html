@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Task 2: Change Background Color</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background-color: lightgray;
+		}
+
+		button {
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<button onclick="changeColor()">Change Background Color</button>
+
+	<script>
+		function changeColor() {
+			// Change background color to a random color
+			document.body.style.backgroundColor =
+				'hsl(' + Math.random() * 360 + ', 100%, 75%)';
+		}
+	</script>
+</body>
+
+</html>

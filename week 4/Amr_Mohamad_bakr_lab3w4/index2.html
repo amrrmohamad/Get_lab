@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Task 2: To-Do List App</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.container {
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		input {
+			padding: 10px;
+			width: 200px;
+			margin-right: 10px;
+		}
+
+		button {
+			padding: 10px;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			padding: 10px;
+			background-color: #e3e3e3;
+			margin-bottom: 5px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-radius: 5px;
+		}
+
+		.remove {
+			background-color: #f44336;
+			border: none;
+			color: white;
+			padding: 5px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h2>To-Do List</h2>
+		<input type="text" id="taskInput" placeholder="Enter a task">
+		<button onclick="addTask()">Add Task</button>
+		<ul id="taskList"></ul>
+	</div>
+
+	<script>
+		// Task 2: To-Do List application
+		function addTask() {
+			const taskInput = document.getElementById('taskInput');
+			const taskText = taskInput.value;
+			if (taskText === '') {
+				alert('Please enter a task!');
+				return;
+			}
+
+			const taskList = document.getElementById('taskList');
+			const li = document.createElement('li');
+			li.innerHTML = `${taskText} <button class="remove" onclick="removeTask(this)">Remove</button>`;
+			taskList.appendChild(li);
+
+			// Clear the input field
+			taskInput.value = '';
+		}
+
+		function removeTask(button) {
+			const taskItem = button.parentNode;
+			taskItem.remove();
+		}
+	</script>
+</body>
+
+</html>

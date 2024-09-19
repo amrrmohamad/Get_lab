@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Task 3: Image Gallery</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background-color: #f4f4f4;
+		}
+
+		.gallery {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.gallery img {
+			max-width: 100px;
+			margin: 10px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.gallery img:hover {
+			transform: scale(1.1);
+		}
+
+		#largeImage {
+			width: 400px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="gallery">
+		<img id="largeImage" src="https://via.placeholder.com/400" alt="Large Image">
+		<div>
+			<img src="https://via.placeholder.com/100" alt="Thumbnail 1" onclick="changeImage(this)">
+			<img src="https://via.placeholder.com/100/ff0000" alt="Thumbnail 2" onclick="changeImage(this)">
+			<img src="https://via.placeholder.com/100/00ff00" alt="Thumbnail 3" onclick="changeImage(this)">
+		</div>
+	</div>
+
+	<script>
+		function changeImage(thumbnail) {
+			document.getElementById('largeImage').src = thumbnail.src;
+		}
+	</script>
+</body>
+
+</html>
