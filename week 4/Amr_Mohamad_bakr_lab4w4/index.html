@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration Form with Arrow Functions & Template Literals</title>
+	<style>
+		form {
+			width: 300px;
+			margin: 0 auto;
+		}
+
+		input {
+			display: block;
+			width: 100%;
+			margin: 10px 0;
+		}
+
+		.error {
+			color: red;
+			font-size: 12px;
+		}
+
+		.user-profile {
+			width: 300px;
+			margin: 20px auto;
+			padding: 10px;
+			border: 1px solid #000;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Task 1: Registration Form -->
+	<form id="registrationForm">
+		<h2>Registration Form</h2>
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username" required>
+		<span class="error" id="usernameError"></span>
+
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required>
+		<span class="error" id="emailError"></span>
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required>
+		<span class="error" id="passwordError"></span>
+
+		<button type="submit">Register</button>
+	</form>
+
+	<!-- Task 3: Dynamic HTML Snippet (will be added here) -->
+	<div id="userProfileContainer"></div>
+
+	<script>
+		// Task 1: Form Validation using Arrow Functions
+		const form = document.getElementById('registrationForm');
+
+		const validateForm = (event) => {
+			event.preventDefault();
+			let isValid = true;
+
+			// Clear previous error messages
+			document.querySelectorAll('.error').forEach(error => error.textContent = '');
+
+			const username = document.getElementById('username').value;
+			const email = document.getElementById('email').value;
+			const password = document.getElementById('password').value;
+
+			// Validate username
+			if (username.length < 5) {
+				document.getElementById('usernameError').textContent = 'Username must be at least 5 characters';
+				isValid = false;
+			}
+
+			// Validate email
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				document.getElementById('emailError').textContent = 'Enter a valid email';
+				isValid = false;
+			}
+
+			// Validate password
+			if (password.length < 6) {
+				document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+				isValid = false;
+			}
+
+			if (isValid) {
+				// Task 3: Use template literals to create a dynamic HTML snippet
+				createUserProfile(username, email);
+			}
+		};
+
+		form.addEventListener('submit', validateForm);
+
+		// Task 2: Refactor previous function to arrow function
+		const createUserProfile = (username, email) => {
+			const userProfile = `
+                <div class="user-profile">
+                    <h3>${username}</h3>
+                    <p>Email: ${email}</p>
+                </div>
+            `;
+			document.getElementById('userProfileContainer').innerHTML = userProfile;
+			alert('Form submitted successfully!');
+		};
+	</script>
+</body>
+
+</html>

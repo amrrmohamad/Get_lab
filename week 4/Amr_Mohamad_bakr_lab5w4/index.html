@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Comprehensive Mini-Project</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+		}
+
+		/* Registration Form Styling */
+		.container {
+			width: 90%;
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		form {
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		input {
+			display: block;
+			width: 96%;
+			padding: 8px;
+			margin: 10px 0;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		label {
+			margin-top: 10px;
+			display: block;
+			font-weight: bold;
+		}
+
+		button {
+			padding: 10px 15px;
+			background-color: #28a745;
+			border: none;
+			color: #fff;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		button:hover {
+			background-color: #218838;
+		}
+
+		.error {
+			color: red;
+			font-size: 12px;
+		}
+
+		/* User Profile Styling */
+		.user-profile {
+			width: 100%;
+			margin: 20px 0;
+			padding: 15px;
+			border: 1px solid #007bff;
+			border-radius: 4px;
+			background-color: #e9f7fe;
+		}
+
+		.user-profile h3 {
+			margin-top: 0;
+			color: #007bff;
+		}
+
+		/* API Data Styling */
+		.api-data {
+			margin-top: 30px;
+		}
+
+		.api-data h2 {
+			color: #333;
+		}
+
+		.user-list {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.user-list li {
+			background-color: #fff;
+			margin: 10px 0;
+			padding: 10px;
+			border-left: 4px solid #17a2b8;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+		}
+
+		.loader {
+			border: 6px solid #f3f3f3;
+			border-top: 6px solid #17a2b8;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			animation: spin 1s linear infinite;
+			margin: 20px auto;
+			display: none;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		/* Responsive Design */
+		@media (max-width: 600px) {
+
+			.user-profile,
+			.api-data {
+				padding: 10px;
+			}
+
+			input {
+				width: 90%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<!-- Task 1, 2 & 3: Registration Form with Validation and User Profile -->
+		<form id="registrationForm">
+			<h2>Registration Form</h2>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			<span class="error" id="usernameError"></span>
+
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required>
+			<span class="error" id="emailError"></span>
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			<span class="error" id="passwordError"></span>
+
+			<button type="submit">Register</button>
+		</form>
+
+		<!-- Container for User Profile -->
+		<div id="userProfileContainer"></div>
+
+		<!-- Task 3: Additional Features - API Data Display -->
+		<div class="api-data">
+			<h2>Fetched Users from API</h2>
+			<div class="loader" id="loader"></div>
+			<ul class="user-list" id="userList"></ul>
+		</div>
+	</div>
+
+	<script>
+		// Task 1: Function to Fetch Data from API and Log to Console
+		const fetchData = () => {
+			fetch('https://jsonplaceholder.typicode.com/users')
+				.then(response => response.json())
+				.then(data => {
+					console.log('Fetched Data:', data);
+				})
+				.catch(error => console.error('Error fetching data:', error));
+		};
+
+		// Call fetchData on page load
+		fetchData();
+
+		// Task 2: Modify the function to display data on the webpage
+		const displayData = () => {
+			const userList = document.getElementById('userList');
+			const loader = document.getElementById('loader');
+			loader.style.display = 'block'; // Show loader
+
+			fetch('https://jsonplaceholder.typicode.com/users')
+				.then(response => response.json())
+				.then(data => {
+					loader.style.display = 'none'; // Hide loader
+					data.forEach(user => {
+						const li = document.createElement('li');
+						li.innerHTML = `
+                            <strong>${user.name}</strong> (<em>${user.email}</em>)<br>
+                            ${user.address.street}, ${user.address.city}
+                        `;
+						userList.appendChild(li);
+					});
+				})
+				.catch(error => {
+					loader.style.display = 'none'; // Hide loader
+					const errorMsg = document.createElement('p');
+					errorMsg.style.color = 'red';
+					errorMsg.textContent = 'Failed to fetch user data.';
+					document.querySelector('.api-data').appendChild(errorMsg);
+					console.error('Error fetching data:', error);
+				});
+		};
+
+		// Call displayData on page load
+		displayData();
+
+		// Task 1, 2 & 3: Registration Form Validation and User Profile Display using Arrow Functions
+		const form = document.getElementById('registrationForm');
+
+		const validateForm = (event) => {
+			event.preventDefault();
+			let isValid = true;
+
+			// Clear previous error messages
+			document.querySelectorAll('.error').forEach(error => error.textContent = '');
+
+			const username = document.getElementById('username').value.trim();
+			const email = document.getElementById('email').value.trim();
+			const password = document.getElementById('password').value.trim();
+
+			// Validate username
+			if (username.length < 5) {
+				document.getElementById('usernameError').textContent = 'Username must be at least 5 characters';
+				isValid = false;
+			}
+
+			// Validate email
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				document.getElementById('emailError').textContent = 'Enter a valid email';
+				isValid = false;
+			}
+
+			// Validate password
+			if (password.length < 6) {
+				document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+				isValid = false;
+			}
+
+			if (isValid) {
+				createUserProfile(username, email);
+				form.reset(); // Reset form fields after successful submission
+			}
+		};
+
+		form.addEventListener('submit', validateForm);
+
+		// Task 2: Refactored Function to Create User Profile using Arrow Function and Template Literals
+		const createUserProfile = (username, email) => {
+			const userProfile = `
+                <div class="user-profile">
+                    <h3>${username}</h3>
+                    <p>Email: ${email}</p>
+                </div>
+            `;
+			document.getElementById('userProfileContainer').innerHTML = userProfile;
+			alert('Registration successful!');
+		};
+	</script>
+</body>
+
+</html>
